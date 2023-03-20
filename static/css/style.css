@@ -1,0 +1,20 @@
+.card-img-top {
+    width: 100%;
+    height: 20vh;
+    object-fit: cover;
+    border-radius: calc(0.25rem - 1px);
+}
+
+.card {
+    margin: 0 auto;
+    margin-bottom: 5px;   
+}
+
+/* #card-width {
+    width: 22rem;
+} */
+
+.image-container {
+    position: relative;
+}
+

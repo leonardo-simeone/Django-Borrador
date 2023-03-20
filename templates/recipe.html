@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>THIS IS A SINGLE RECIPE PAGE</h1>
+<hr>
+<br>
+
+<p>{{recipe_object.title}}</p>
+<p>{{recipe_object.instructions}}</p>
+<p>{{recipe_object.created}}</p>
+<p>{{recipe_object.number_of_ingredients}}</p>
+
+<br>
+{% for tag in tags %}
+
+<p>{{tag}}</p>
+
+{% endfor %}
+
+<hr>
+<br>
+
+<h2>Comments</h2>
+
+{% for comment in comments %}
+
+    <p>{{comment.body}}</p>
+
+{% endfor %}
+
+{% endblock %}

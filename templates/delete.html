@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<hr><hr>
+
+{% block content %}
+<h1>THIS IS A DELETE PAGE</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{object}}"?</p>
+    <a href="{% url 'recipes' %}">Go back</a>
+    <input type="submit" value="Delete">
+</form>
+
+
+{% endblock %}

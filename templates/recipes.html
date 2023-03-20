@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<hr>
+<hr>
+
+{% block content %}
+
+<h1>This is recipes</h1>
+
+
+<div class="container">
+    <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-12 mt-3 left">
+            <div class="row">
+                {% for recipe in recipes_list %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="image-container">
+                                {% if "default-image" in recipe.dish_image.url %}
+                                <!-- curly brackets with % indicates a control statement -->
+                                <img class="card-img-top"
+                                    src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" alt="">
+                                {% else %}
+                                <img class="card-img-top" src=" {{ recipe.dish_image.url }} " alt="">
+                                <!-- curly brackets on their own insert the content into the html -->
+                                {% endif %}                                
+                            </div>
+                            <!-- Notice that the 'post_detail' name matches the name we gave to our url
+                                in the urls.py file  -->
+                            <a href="{% url 'recipeunit' recipe.id %}">
+                                <h2 class="card-title">{{recipe.title}}</h2>
+                                <p class="card-text">{{recipe.short_description}}</p>
+                                <p class="card-text">{{recipe.created}}</p>
+                            </a>                            
+                        </div>
+                    </div>
+                </div>
+                {% if forloop.counter|divisibleby:3 %}
+            </div>
+            <div class="row">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>    
+</div>
+
+{% if recipes_list.has_other_pages %}
+<nav>
+  <ul class="pagination justify-content-center">
+    {% if recipes_list.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ recipes_list.previous_page_number }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+          <span class="page-link" aria-hidden="true">&laquo;</span>
+      </li>
+    {% endif %}
+
+    {% for p in recipes_list.paginator.page_range %}
+      {% if recipes_list.number == p %}
+        <li class="page-item"><a class="page-link" style="color: red;" href="#">{{ p }}</a></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if recipes_list.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ recipes_list.next_page_number }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <span class="page-link" aria-hidden="true">&raquo;</span>
+      </li>
+    {% endif %}
+</ul>
+</nav>
+{% endif %}
+</div>
+
+{% endblock %}
